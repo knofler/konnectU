@@ -1,0 +1,5 @@
+node_modules
+public
+.tmp
+.sass-cache
+/dist
