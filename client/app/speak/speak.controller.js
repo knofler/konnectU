@@ -2,29 +2,28 @@
 
 angular.module('webrtcAppApp')
   .controller('SpeakCtrl', function ($scope,$http) {
-   	
 
 /* Cross-Browser Web Audio API Playback With Chrome And Callbacks */
-
 // alias the Web Audio API AudioContext-object
 var aliasedAudioContext = window.AudioContext || window.webkitAudioContext;
-// ugly user-agent-string sniffing
-var isChrome = ((typeof navigator !== 'undefined') && navigator.userAgent &&
-                navigator.userAgent.indexOf('Chrome') !== -1);
-var chromeVersion = (isChrome)?
-                    parseInt(
-                      navigator.userAgent.replace(/^.*?\bChrome\/([0-9]+).*$/, '$1'),
-                      10
-                    ) : 0;
 
- var formFields = ['text','amplitude','wordgap','pitch','speed'];
+// ugly user-agent-string sniffing
+var isChrome = ((typeof navigator !== 'undefined') && navigator.userAgent && navigator.userAgent.indexOf('Chrome') !== -1);
+var chromeVersion = (isChrome) ? parseInt(navigator.userAgent.replace(/^.*?\bChrome\/([0-9]+).*$/, '$1'),10) : 0;
+
+var formFields = ['text','amplitude','wordgap','pitch','speed'];
 
 console.log(meSpeak);
+
+//meSpeak is initiated variable for mespeak class from mespeak.js
 meSpeak.loadConfig('assets/mespeak/mespeak_config.json');
 
+//json call for callback data check
 $http.get('assets/mespeak/mespeak_config.json').success(function(data){
   console.log(data);
-});
+ });
+
+//load voice json file library
 meSpeak.loadVoice("assets/mespeak/voices/en/en.json");
 
 function playSound(streamBuffer, callback) {
@@ -70,13 +69,11 @@ function playSound(streamBuffer, callback) {
             source.noteOn(0);
         }
     }
- }
-  
+    };
 function loadVoice(id) {
   var fname="voices/"+id+".json";
   meSpeak.loadVoice(fname, voiceLoaded);
- }
-
+  };
 function voiceLoaded(success, message) {
   if (success) {
     alert("Voice loaded: "+message+".");
@@ -84,8 +81,7 @@ function voiceLoaded(success, message) {
   else {
     alert("Failed to load a voice: "+message);
   }
- }
-
+  };
 function autoSpeak() {
   // checks url for speech params, sets and plays them, if found.
   // also adds eventListeners to update a link with those params using current values
@@ -156,8 +152,7 @@ function autoSpeak() {
   s.addEventListener('change', updateSpeakLink, false);
   // finally, inject a link with current values into the page
   updateSpeakLink();
- }
-
+  };
 function updateSpeakLink() {
   // injects a link for auto-execution using current values into the page
   var i,l,n,f,s,v,url,el,params=new Array();
@@ -178,6 +173,6 @@ function updateSpeakLink() {
   url=url.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;');
   el=document.getElementById('linkdisplay');
   if (el) el.innerHTML='Instant Link: <a href="'+url+'">Speak this</a>.';
- }
+  };
 
-  });
+});
