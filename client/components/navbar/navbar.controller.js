@@ -5,6 +5,7 @@ angular.module('webrtcAppApp')
     $scope.menu = [
     {'title': 'Home','link': '/'},
     {'title': 'Chat','link': '/chat'},
+    {'title': 'Speech','link': '/speech'},
     {'title': 'Speak','link': '/speak'},
     {'title': 'Stream','link': '/stream'}
     ];

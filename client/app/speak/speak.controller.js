@@ -15,11 +15,12 @@ $http.get('assets/mespeak/mespeak_config.json').success(function(data){
 
 //load voice json file library
 meSpeak.loadVoice("assets/mespeak/voices/en/en.json");
+meSpeak.loadVoice("assets/mespeak/voices/fr.json");
 
 var parts = [
-  { text: "Travel to",      voice: "en/en", variant: "m3" },
-  // { text: "Paris",          voice: "fr",    variant: "f5" },
-  { text: "at light speed", voice: "en/en", variant: "m3" }
+  { text: "Travel to",      voice: "en/en", variant: "m1" },
+  { text: "Paris",          voice: "fr",    variant: "f5" },
+  { text: "at light speed", voice: "en/en", variant: "m13" }
 ];
 
 $scope.speakIt = function () {
