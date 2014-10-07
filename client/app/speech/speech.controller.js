@@ -74,7 +74,9 @@ var final_transcript = '';
 var recognizing 	 = false;
 var ignore_onend;
 var start_timestamp;	
-var current_style; 
+var current_style;
+
+$scope.buttonVisible = false; 
 
 for (var i = 0; i < langs.length; i++) {
   select_language.options[i] = new Option(langs[i][0], i);
@@ -158,7 +160,7 @@ recognition.onresult 	= function(event) {
     final_span.innerHTML = $scope.linebreak(final_transcript);
     interim_span.innerHTML = $scope.linebreak(interim_transcript);
     if (final_transcript || interim_transcript) {
-      $scope.showButtons('inline-block');
+      $scope.showButtons();
     }
  };
 
@@ -197,9 +199,6 @@ $scope.copyButton 		= function () {
     recognizing = false;
     recognition.stop();
   }
-  copy_button.style.display = 'none';
-  copy_info.style.display = 'inline-block';
-  $scope.showInfo('');
  };
 $scope.emailButton 		= function () {
   if (recognizing) {
@@ -209,9 +208,6 @@ $scope.emailButton 		= function () {
   } else {
     $scope.createEmail();
   }
-  email_button.style.display = 'none';
-  email_info.style.display = 'inline-block';
-  $scope.showInfo('');
  };
 $scope.startButton 		= function (event) {
   if (recognizing) {
@@ -225,9 +221,7 @@ $scope.startButton 		= function (event) {
   final_span.innerHTML = '';
   interim_span.innerHTML = '';
   start_img.src = 'assets/images/mic-slash.gif';
-  $scope.showInfo('info_allow');
-  $scope.showButtons('none');
-  // start_timestamp = event.timeStamp;
+  $scope.showButtons();
  	};
 $scope.showInfo 		= function (s) {
   if (s) {
@@ -241,16 +235,10 @@ $scope.showInfo 		= function (s) {
     info.style.visibility = 'hidden';
   }
  };
-$scope.showButtons 		= function (style) {
-  if (style == current_style) {
-    return;
-  }
-  current_style = style;
-  copy_button.style.display = style;
-  email_button.style.display = style;
-  copy_info.style.display = 'none';
-  email_info.style.display = 'none';
-	};
+$scope.showButtons 		= function () {
+	console.log($scope.buttonVisible);
+	$scope.buttonVisible = true;
+ };
 
 
 });
