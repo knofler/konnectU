@@ -70,13 +70,15 @@
       <script src="socket.io-client/socket.io.js"></script>
     <!-- endbuild -->
 
-     <!-- SimplewebRTC cdn for video conferencing -->
+
+        <!-- build:js({.tmp,client}) app/app.js -->
+        <script src="app/app.js"></script>
+
+         <!-- SimplewebRTC cdn for video conferencing -->
      <script src="http://simplewebrtc.com/latest.js"></script> 
      <!-- meSpeak cdn for mespeak library -->
      <script src='http://www.masswerk.at/mespeak/mespeak.js'></script>
 
-        <!-- build:js({.tmp,client}) app/app.js -->
-        <script src="app/app.js"></script>
           <!-- injector:js -->
           <script src="app/account/account.js"></script>
           <script src="app/account/login/login.controller.js"></script>
