@@ -81,8 +81,8 @@ for (var i = 0; i < langs.length; i++) {
   select_language.options[i] = new Option(langs[i][0], i);
  };
 
-select_language.selectedIndex 	= 6;
-select_dialect.selectedIndex 	= 6;
+// select_language.selectedIndex 	= 6;
+// select_dialect.selectedIndex 	= 6;
 
 if (!('webkitSpeechRecognition' in window)) {
   $scope.upgrade();
@@ -165,7 +165,11 @@ recognition.onresult 	= function(event) {
 
 // custom functions for this application
 $scope.updateCountry 	= function () {
+  console.log('select_dialect.length is ' + select_dialect.length);
+  console.log("select_dialect.options.length is " + select_dialect.options.length);
+  console.log("select_dialect.options.length -1 is " + ((select_dialect.options.length)-1));
   for (var i = select_dialect.options.length - 1; i >= 0; i--) {
+  	console.log("i is" + i);
     select_dialect.remove(i);
   }
   var list = langs[select_language.selectedIndex];
@@ -247,6 +251,6 @@ $scope.showButtons 		= function (style) {
  };
 
 $scope.showInfo('info_start');
-$scope.updateCountry();
+
 
 });
