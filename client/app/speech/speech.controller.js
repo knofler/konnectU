@@ -76,7 +76,6 @@ var ignore_onend;
 var start_timestamp;	
 var current_style;
 
-$scope.buttonVisible = false; 
 
 for (var i = 0; i < langs.length; i++) {
   select_language.options[i] = new Option(langs[i][0], i);
@@ -89,7 +88,7 @@ if (!('webkitSpeechRecognition' in window)) {
   $scope.upgrade();
  }; 
   
-// This comes here means, browser support web speech API, stype button display first	
+// This comes here means, browser support web speech API, style button display first	
 start_button.style.display = 'inline-block';
 
 //instantiate webkitSpeechRecognition class
@@ -159,8 +158,8 @@ recognition.onresult 	= function(event) {
     final_transcript = $scope.capitalize(final_transcript);
     final_span.innerHTML = $scope.linebreak(final_transcript);
     interim_span.innerHTML = $scope.linebreak(interim_transcript);
-    if (final_transcript || interim_transcript) {
-      $scope.showButtons();
+   if (final_transcript || interim_transcript) {
+      $scope.showButtons('inline-block');
     }
  };
 
@@ -209,7 +208,7 @@ $scope.emailButton 		= function () {
     $scope.createEmail();
   }
  };
-$scope.startButton 		= function (event) {
+$scope.startButton 		= function (event) {	
   if (recognizing) {
     recognition.stop();
     return;
@@ -221,7 +220,10 @@ $scope.startButton 		= function (event) {
   final_span.innerHTML = '';
   interim_span.innerHTML = '';
   start_img.src = 'assets/images/mic-slash.gif';
-  $scope.showButtons();
+  $scope.showInfo('info_allow');
+  $scope.showButtons('none');
+  start_timestamp = event.timeStamp;
+  console.log(event);
  	};
 $scope.showInfo 		= function (s) {
   if (s) {
@@ -235,10 +237,16 @@ $scope.showInfo 		= function (s) {
     info.style.visibility = 'hidden';
   }
  };
-$scope.showButtons 		= function () {
-	console.log($scope.buttonVisible);
-	$scope.buttonVisible = true;
+$scope.showButtons 		= function (style) {
+	if (style == current_style) {
+    return;
+  }
+  current_style = style;
+  copy_button.style.display = style;
+  email_button.style.display = style;
  };
 
+$scope.showInfo('info_start');
+$scope.updateCountry();
 
 });
