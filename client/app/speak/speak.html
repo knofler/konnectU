@@ -1,17 +1,27 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 <div class="container" id="speak">
-	  <h1>meSpeak.js</h1>
-  <h2>Text-To-Speech on the Web</h2>
-  <form id="speakData" onsubmit="meSpeak.speak(text.value, { amplitude: amplitude.value, wordgap: wordgap.value, pitch: pitch.value, speed: speed.value }); return false">
-    Text: <input type="text" name="text" size=50 value="Never gonna give, you, up.">
-    Amplitude: <input type="text" name="amplitude" size=5 value="100">
-    Pitch: <input type="text" name="pitch" size=5 value="50">
-    Speed: <input type="text" name="speed" size=5 value="175">
-    Word gap: <input type="text" name="wordgap" size=5 value="0">
-    <input type="submit" value="Go!">
-  </form>
-  <form onsubmit="return false">
-    Voice: <select id="voiceSelect"  onchange="loadVoice(this.options[this.selectedIndex].value);">
+	<div class="row">
+  	<div class="col-lg-8">
+  	<h2>Speak it out</h2>
+  	<form id="speakData" onsubmit="meSpeak.speak(text.value, { amplitude: amplitude.value, wordgap: wordgap.value, pitch: pitch.value, speed: speed.value }); return false">
+	<div class="input-group input-group-lg">
+	  <span class="input-group-addon">Text</span>
+	  <input type="text" name="text" class="form-control" size=50 value="Never gonna give, you, up.">
+	</div>
+	<div class="input-group input-group-lg">
+	  <span class="input-group-addon">Amplitude</span>
+	  <input type="text" name="amplitude" class="form-control" size=5 value="100">
+	  <span class="input-group-addon">Pitch</span>
+	  <input type="text" name="pitch" class="form-control" size=5 value="50">
+	  <span class="input-group-addon">Speed</span>
+	  <input type="text" name="speed" class="form-control" size=5 value="175">
+	  <span class="input-group-addon">Word Gap</span>
+	  <input type="text" name="wordgap" class="form-control" size=5 value="0">
+	</div>
+	<div class="input-group input-group-lg">
+	  <span class="input-group-addon">Voice</span>
+    <select class="btn btn-default dropdown-toggle btn-height" data-toggle="dropdown" id="voiceSelect" 
+    onchange="loadVoice(this.options[this.selectedIndex].value)">
     	<option value="ca">ca - Catalan</option>
 		<option value="cs">cs - Czech</option>
 		<option value="de">de - German</option>
@@ -43,15 +53,14 @@
 		<option value="zh">zh - Mandarin Chinese (Pinyin)</option>
 		<option value="zh-yue">zh-yue - Cantonese Chinese</option>
 	</select>
+	<button class="btn btn-danger btn-adjust" type="submit">Go</button>
+	<button class="btn btn-warning btn-adjust" id="button" ng-click="speakIt()">speak multipart</button>
+	</div>
   </form>
-  <p id="linkdisplay"></p>
-  <hr class="separator" />
-  <div id="container">
-	<button id="button" ng-click="speakIt()">speak multipart</button>
+  </div>
+  </div>
 </div>
-
-</div>
-
+  
 <footer class="footer">
   <div class="container">
       <p>konnectU enables you to keep in touch with your peer. |
