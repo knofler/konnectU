@@ -4,23 +4,24 @@
 
 <h1> Chat</h1>
 
-  <div id="buttons">
-    <button id="sendButton"  ng-click="sendData()" ng-disabled="enableSendClose">Send</button>
-  </div>
-
-  <div id="sendReceive">
-    <div id="send">
-      <h2>Send</h2>
-      <textarea id="dataChannelSend" ng-model="dataInputOutput" disabled placeholder="Press Start, enter some text, then press Send."></textarea>
-    </div>
-    <div id="receive">
-      <h2>Receive</h2>
-      <textarea id="dataChannelReceive" disabled></textarea>
-    </div>
-  </div>
-
-  <p>View the console to see logging.</p>
-</div>
+       <div class="row chatMsgContainer">
+       <div class="chatMsg chatMsgOthers"> 
+        <form role="form" id="chatForm">
+          <div class="input-group">
+            <textarea class="form-control" id="chatBox" form_id="chatForm" rows="1"></textarea>
+            <span class="input-group-btn">
+              <button type="submit" id="sendChat" class="btn btn-default help" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Send the message" style="height: 34px;">
+                <span class="glyphicon glyphicon-share-alt">
+                </span>
+              </button>
+              <button type="button" id="saveChat" class="btn btn-default help" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Save history to a file" style="height: 34px;">
+                <span class="glyphicon glyphicon-floppy-save">
+                </span>
+              </button>
+            </span>
+          </div>
+        </form>
+      </div>
 
 </div>
 

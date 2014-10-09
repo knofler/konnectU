@@ -3,12 +3,7 @@
 angular.module('webrtcAppApp')
   .controller('ChatCtrl', function ($scope) {
    
-      var webrtc = new SimpleWebRTC({
-    // the id/element dom element that will hold "our" video
-    // localVideoEl: 'localVideo',
-    // the id/element dom element that will hold remote videos
-    // remoteVideosEl: 'remotesVideos',
-    // immediately ask for camera access
+    var webrtc = new SimpleWebRTC({
     autoRequestMedia: true
     });
 
@@ -18,15 +13,30 @@ angular.module('webrtcAppApp')
     webrtc.joinRoom('your awesome room name');
     });
 
-  webrtc.on('joinedRoom', function () {
-  webrtc.sendDirectlyToAll("text chat", "chat", "hello sydney");
-  console.log("client joined  room");
-});
-   webrtc.on('channelMessage', function (peer, label, data) {
-   // Only handle messages from your dataChannel
-   if (label !== 'text chat') return;
-   else if (data.type == 'chat') {
-    console.log('Received message: ' + data.payload + ' from ' + peer.id);
+      // Add a new message to the chat history
+  function newChatMessage(from,message){
+    console.log("the msg is from " + from + " and the message is " + message ); 
   }
- });
-});
+
+
+    // Handle dataChannel messages (incoming)
+  webrtc.on('channelMessage', function (peer, label, data){
+    // One peer just sent a text chat message
+    if (data.type == 'textChat'){
+      newChatMessage(peer,data.payload);
+    }
+  });
+
+
+  // Chat: send to other peers
+  $('#chatForm').submit(function (e){
+    e.preventDefault();
+    if ($('#chatBox').val()){
+      webrtc.sendDirectlyToAll('vroom', 'textChat', $('#chatBox').val());
+      // Local echo of our own message
+      // newChatMessage('local',$('#chatBox').val());
+    }
+  });
+
+  });
+
