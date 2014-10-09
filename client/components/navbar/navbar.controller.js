@@ -5,9 +5,14 @@ angular.module('webrtcAppApp')
     $scope.menu = [
     {'title': 'Home','link': '/'},
     {'title': 'Chat','link': '/chat'},
+    {'title': 'Data View','link': '/dataView'},
+    {'title': 'File Share','link': '/fileshare'},
+    {'title': 'Listen','link': '/listen'},
+    {'title': 'Remote Control','link': '/remoteCtrl'},
     {'title': 'Speech','link': '/speech'},
     {'title': 'Speak','link': '/speak'},
-    {'title': 'Stream','link': '/stream'}
+    {'title': 'Stream','link': '/stream'},
+    {'title': 'Watch','link': '/watch'}
     ];
 
     $scope.isCollapsed = true;
