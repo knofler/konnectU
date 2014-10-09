@@ -5,19 +5,8 @@
 <h1> Chat</h1>
 
   <div id="buttons">
-   <!--  <button id="connectBtn"  ng-click="createConnection()" ng-disabled="ctrlStart">Start</button> -->
-    <button id="startButton" ng-click="createConnection()" ng-disabled="ctrlStart">Start</button>
     <button id="sendButton"  ng-click="sendData()" ng-disabled="enableSendClose">Send</button>
-    <button id="closeButton" ng-click="closeDataChannels()" ng-disabled="enableSendClose">Stop</button>
   </div>
-
-  <form>
-    <span>Choose protocol for transmitting data:</span>
-    <input type="radio" id="useSctp" value="SCTP" name="transportbtn" checked />
-    <label for="useSctp">SCTP</label>
-    <input type="radio" id="useRtp" value="RTP" name="transportbtn" />
-    <label for="useRtp">RTP</label>
-  </form>
 
   <div id="sendReceive">
     <div id="send">
@@ -31,8 +20,8 @@
   </div>
 
   <p>View the console to see logging.</p>
-</div> 
-	</div>
+</div>
+
 </div>
 
 <footer class="footer">

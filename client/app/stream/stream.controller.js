@@ -18,4 +18,8 @@ angular.module('webrtcAppApp')
     webrtc.joinRoom('your awesome room name');
     });
  
+        webrtc.on('joinedRoom', function () {
+  // webrtc.sendDirectlyToAll("text chat", "chat", "hello sydney");
+  console.log("client joined  room");
+});
   });
