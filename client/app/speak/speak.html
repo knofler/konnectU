@@ -1,18 +1,20 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 <div class="container" id="speak">
 	<div class="row">
-  	<div class="col-lg-8">
-  	<h2>Speak it out</h2>
+  	<div class="col-lg-6">
+  	<h2 class="h2_custom">Speak it out</h2>
   	<form id="speakData" onsubmit="meSpeak.speak(text.value, { amplitude: amplitude.value, wordgap: wordgap.value, pitch: pitch.value, speed: speed.value }); return false">
 	<div class="input-group input-group-lg">
 	  <span class="input-group-addon">Text</span>
-	  <input type="text" name="text" class="form-control" size=50 value="Never gonna give, you, up.">
+	  <input type="text" name="text" class="form-control inputCtrl" size=50 value="Type here, what you want to listen ...">
 	</div>
 	<div class="input-group input-group-lg">
 	  <span class="input-group-addon">Amplitude</span>
 	  <input type="text" name="amplitude" class="form-control" size=5 value="100">
 	  <span class="input-group-addon">Pitch</span>
 	  <input type="text" name="pitch" class="form-control" size=5 value="50">
+	  </div>
+	  <div class="input-group input-group-lg">
 	  <span class="input-group-addon">Speed</span>
 	  <input type="text" name="speed" class="form-control" size=5 value="175">
 	  <span class="input-group-addon">Word Gap</span>

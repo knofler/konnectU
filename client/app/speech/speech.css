@@ -36,14 +36,16 @@
     float: right;
   }*/
   #headline {
-    font-size: 40px;
-    font-weight: 300;
+    font-size: 32px;
+    font-weight:500;
+    color:#155fad;
   }
   #info {
     font-size: 18px;
   /*  text-align: center;*/
     color: #777;
     visibility: hidden;
+    padding: 10px;
   }
   .sidebyside {
     display: inline-block;

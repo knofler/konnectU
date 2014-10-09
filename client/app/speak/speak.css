@@ -2,7 +2,17 @@
 	height: 45px;
 }
 .btn-adjust{
-	width: 214px;
+	/*width: 214px;*/
 	height: 45px;
 	border-radius: 0px;
+}
+
+.inputCtrl{
+	font-weight: bold;
+	color: #444;
+}
+
+.h2_custom{
+	color:#8B6508;
+	font-weight: 500;
 }
