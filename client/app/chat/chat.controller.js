@@ -19,7 +19,7 @@ angular.module('webrtcAppApp')
   }
 
 
-    // Handle dataChannel messages (incoming)
+  // Handle dataChannel messages (incoming)
   webrtc.on('channelMessage', function (peer, label, data){
     // One peer just sent a text chat message
     if (data.type == 'textChat'){
