@@ -27,6 +27,26 @@ form span {
   white-space: normal;
 }
 
+.urlCtrl{
+  font-size:22px;
+  font-weight: 300; 
+  padding-left: 0px;
+  margin-left:-16px;
+}
+
+.statusCtrl{
+  font-size:14px;
+  color: #888; 
+  padding-left: 0px;
+  margin-left:-16px;
+  list-style-type: square;
+}
+
+#roomCss{
+  color:#0c7926;
+  font-weight: bold;
+}
+
 #chatBox{
   height: 34px;
 }

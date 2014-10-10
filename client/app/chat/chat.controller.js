@@ -4,7 +4,9 @@ angular.module('webrtcAppApp')
   .controller('ChatCtrl', function ($scope) {
   
   var webrtc ;
-  $scope.rootUrl = '10.41.246.194:9000/chat/' 
+  $scope.rootUrl = '192.168.1.129:9000/chat#' ;
+  $scope.room = window.location.hash.substring(1);
+  console.log($scope.room); 
 
   // Add a new message to the chat history
   $scope.newChatMessage = function (from,message){
@@ -39,15 +41,15 @@ angular.module('webrtcAppApp')
       $('.panel-body').scrollTop($('.panel-body').prop('scrollHeight'));
       // console.log("the msg is from " + from + " and the message is " + message ); 
     };
-
   $scope.createRoom = function(){
     //grab chat room name
     var roomname = $("#chatName").val();
-
+    if (roomname == ''){
+      return;
+    }
     $('#chatName').val('');
-
     var chatRoom = $scope.rootUrl + roomname;
-    $('#url').html('<p><a href="http://'+chatRoom+'">'+chatRoom+'</a></p>');
+    $('#url').html('<p class="urlCtrl">Chat room url is : <a href="http://'+chatRoom+'" id="joinRoom">'+chatRoom+'</a></p>');
     console.log(chatRoom);
 
     $scope.initChat(roomname);
@@ -55,14 +57,12 @@ angular.module('webrtcAppApp')
     // window.location.assign(chatRoom);
     
    };  
-
-  //join chatRoom
-  $scope.joinChat = function(roomName){
-    webrtc.joinRoom(roomName);
+  $scope.joinRoom = function(){
+    $('#chatJoinDiv').hide();  
+    $scope.initChat($scope.room);
+    $scope.createChat_window($scope.room);
    };  
   $scope.initChat = function(roomname){
-
-    roomname='test';
 
     //Instantiate SimpleWebRTC without audio video element injection 
     webrtc = new SimpleWebRTC({autoRequestMedia: true });
@@ -73,7 +73,8 @@ angular.module('webrtcAppApp')
      });
 
     webrtc.on('joinedRoom',function(){
-      console.log('room joined');
+      $('#connection').append('<li class="statusCtrl"> user has joined <span id="roomCss">'+ roomname+ '</span> </li>')
+      console.log(roomname + ' room joined');
      });
 
     // Handle dataChannel messages (incoming)
@@ -127,22 +128,26 @@ angular.module('webrtcAppApp')
        
        '</div>');
    };  
-
-   $(document).on('submit','#chatForm',function (e){
+  $(document).on('submit','#chatForm',function (e){
     e.preventDefault();
-    if ($('#chatBox').val()){
+     if ($('#chatBox').val()){
       webrtc.sendDirectlyToAll('vroom', 'textChat', $('#chatBox').val());
-      // Local echo of our own message
-      $scope.newChatMessage('local',$('#chatBox').val());
-     }
-    $('#chatBox').val('');
+       // Local echo of our own message
+       $scope.newChatMessage('local',$('#chatBox').val());
+       }
+     $('#chatBox').val('');
+     });
+    };
+  $(document).on('click','#joinRoom',function(e){
+    e.preventDefault();
+    var roomname = window.location.hash.substring(1);
+    // window.location.assign(chatRoom);
     });
 
+  if ($scope.room !== '') {
+      $scope.joinRoom();
    };
-
-  
-
-  });
+});
  
 
   
