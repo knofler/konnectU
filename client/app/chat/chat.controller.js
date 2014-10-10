@@ -3,16 +3,8 @@
 angular.module('webrtcAppApp')
   .controller('ChatCtrl', function ($scope) {
   
-  //Instantiate SimpleWebRTC without audio video element injection 
-  var webrtc = new SimpleWebRTC({autoRequestMedia: true });
-
-  // we have to wait until it's ready
-  webrtc.on('readyToCall', function () {
-    
-    // you can name it anything
-    webrtc.joinRoom('your awesome room name');
-
-    });
+  var webrtc ;
+  $scope.rootUrl = '10.41.246.194:9000/chat/' 
 
   // Add a new message to the chat history
   $scope.newChatMessage = function (from,message){
@@ -48,16 +40,95 @@ angular.module('webrtcAppApp')
       // console.log("the msg is from " + from + " and the message is " + message ); 
     };
 
-  // Handle dataChannel messages (incoming)
-  webrtc.on('channelMessage', function (peer, label, data){
-    // One peer just sent a text chat message
-    if (data.type == 'textChat'){
-      $scope.newChatMessage(peer,data.payload);
-     }
-    });
+  $scope.createRoom = function(){
+    //grab chat room name
+    var roomname = $("#chatName").val();
 
-  // Chat: send to other peers
-  $('#chatForm').submit(function (e){
+    $('#chatName').val('');
+
+    var chatRoom = $scope.rootUrl + roomname;
+    $('#url').html('<p><a href="http://'+chatRoom+'">'+chatRoom+'</a></p>');
+    console.log(chatRoom);
+
+    $scope.initChat(roomname);
+    $scope.createChat_window(roomname);
+    // window.location.assign(chatRoom);
+    
+   };  
+
+  //join chatRoom
+  $scope.joinChat = function(roomName){
+    webrtc.joinRoom(roomName);
+   };  
+  $scope.initChat = function(roomname){
+
+    roomname='test';
+
+    //Instantiate SimpleWebRTC without audio video element injection 
+    webrtc = new SimpleWebRTC({autoRequestMedia: true });
+
+    // we have to wait until it's ready
+    webrtc.on('readyToCall', function () {
+      webrtc.joinRoom(roomname);
+     });
+
+    webrtc.on('joinedRoom',function(){
+      console.log('room joined');
+     });
+
+    // Handle dataChannel messages (incoming)
+    webrtc.on('channelMessage', function (peer, label, data){
+      // One peer just sent a text chat message
+      if (data.type == 'textChat'){
+        $scope.newChatMessage(peer,data.payload);
+       }
+   });
+
+    // Chat: send to other peers
+  $scope.createChat_window = function(roomname){
+    $('#chatPanel').html(' <div class="col-md-5">'+
+        '<div class="panel panel-primary">'+
+     
+         '<!-- This is chat control panel -->'+
+          '<div class="panel-heading">'+
+              '<span class="glyphicon glyphicon-comment"></span> '+ roomname +
+              '<div class="btn-group pull-right">'+
+                  '<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">'+
+                      '<span class="glyphicon glyphicon-chevron-down"></span>'+
+                  '</button>'+
+                  '<ul class="dropdown-menu slidedown">'+
+                      '<li><a href="#"><span class="glyphicon glyphicon-refresh"></span>Refresh</a></li>'+
+                      '<li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-ok-sign"></span>Available</a></li>'+
+                      '<li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-remove"></span>Busy</a></li>'+
+                      '<li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-time"></span>Away</a></li>'+
+                      '<li class="divider"></li>'+
+                      '<li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-off"></span>Sign Out</a></li>'+
+                  '</ul>'+
+              '</div>'+
+              '</div>'+
+          '<!-- This is Chat message display -->'+
+          '<div class="panel-body">'+
+              '<ul class="chat">'+
+                  
+              '</ul>'+
+              '</div>'+
+          '<!-- This is chat input  -->'+
+          '<div class="panel-footer">'+ 
+              '<form role="form" id="chatForm">'+
+                '<div class="input-group">'+
+                   '<input id="chatBox" form_id="chatForm"  type="text" class="form-control input-sm"'+ 
+                    'placeholder="Type your message here..."/>'+
+                  '<span class="input-group-btn">'+
+                   '<button class="btn btn-warning btn-sm" type="submit" id="sendChat" data-toggle="tooltip" data-placement="bottom" title=""  data-original-title="Send the message" style="height: 34px;">send</button>'+
+                  '</span>'+
+                '</div>'+
+             '</form>'+
+              '</div>'+ 
+       
+       '</div>');
+   };  
+
+   $(document).on('submit','#chatForm',function (e){
     e.preventDefault();
     if ($('#chatBox').val()){
       webrtc.sendDirectlyToAll('vroom', 'textChat', $('#chatBox').val());
@@ -66,5 +137,13 @@ angular.module('webrtcAppApp')
      }
     $('#chatBox').val('');
     });
+
+   };
+
+  
+
   });
+ 
+
+  
 

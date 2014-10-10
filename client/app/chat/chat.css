@@ -27,6 +27,10 @@ form span {
   white-space: normal;
 }
 
+#chatBox{
+  height: 34px;
+}
+
 .chat
 {
     list-style: none;
