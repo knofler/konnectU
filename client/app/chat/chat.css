@@ -26,14 +26,6 @@ form span {
   margin: 0 1em 0 0;
   white-space: normal;
 }
-textarea {
-  color: #444;
-  font-size: 0.9em;
-  font-weight: 300;
-  height: 7.0em;
-  padding: 5px;
-  width: calc(100% - 10px);
-}
 
 .chat
 {
@@ -75,6 +67,7 @@ textarea {
 {
     overflow-y: scroll;
     height: 250px;
+    padding: 20px;
 }
 
 ::-webkit-scrollbar-track
