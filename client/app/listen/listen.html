@@ -1,10 +1,92 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 <div class="container" id="listen">
-<div class="col-md-12">
+		<h1>Listen ..</h1>		  
+		<div class="container col-md-10" id="play">
 
-<h1>Listen ..</h1>
+			  <div id="playAudio">
+				 <audio id="audioPlay" src="/assets/media/test.mp3" controls="controls"></audio><br><br>
+			   </div>
+		  
+			  <div class="form-group">
+			    <button ng-disabled="currentNum == 0" class="btn btn-default prev" ng-click="prev()">
+			      <span  class="prev-text"><i class="glyphicon glyphicon-step-backward"></i> Prev
+			    </button>
+			  	<button  class="btn btn-default" id="playSlow" ng-click="slowMotion()">
+			      <span  class="slow-text"><i class="glyphicon glyphicon-backward"></i> Slow Motion</span>
+			    </button>
+			     <button class="btn btn-default" id="playStart" ng-click="playStart()">
+			       <span class="play-text"><i class="glyphicon glyphicon-play"></i> Play</span>
+			    </button>
+			     <button class="btn btn-default" id="playPause" ng-click="playPause()">
+			       <span class="pause-text"><i class="glyphicon glyphicon-pause"></i> Pause</span>
+			    </button>
+			    <button  class="btn btn-default" id="playStop" ng-click="playStop()">
+			      <span  class="stop-text"><i class="glyphicon glyphicon-stop"></i> Stop</span>
+			    </button>
+			    <button  class="btn btn-default" id="playFast" ng-click="playFast()">
+			      <span  class="forward-text"><i class="glyphicon glyphicon-forward"></i> Fast Forward</span>
+			    </button>
+			    <button  class="btn btn-default" id="playEnd" ng-click="playRepeat()">
+			       <span class="end-text"><i class="glyphicon glyphicon-fast-forward"></i> End Track</span>
+			    </button>
+			    <button  class="btn btn-default" id="playRepeat" ng-click="playRepeat()">
+			       <span class="repeat-text"><i class="glyphicon glyphicon-repeat"></i> Repeat</span>
+			    </button>
+			    <button ng-disabled="currentNum >= (totalNum-1)" class="btn btn-default next" ng-click="next()"> Next 
+			       <span class="next-text"><i class="glyphicon glyphicon-step-forward"></i></span>
+			    </button>
+			  </div>
 
-</div>
+				<div class="col-md-4 sliderCtrl">
+				  <div class="form-group time">
+					 <label>time: </label>
+					 <input class="custSeeker" id ="mediaSeeker" min="0" max="{{audioPlay.duration}}" 
+					    step="{{audioPlay.duration/100}}" type="range" ng-model="seekContData" ng-change="seekContent()">
+				  </div>
+				 </div>
+			 
+				<div class="col-md-4 sliderCtrl">
+				    <div class="form-group"><label>volume: </label>
+					  <input class="custSeeker" id ="volumeSeeker" min="0" max="1" step="0.1" 
+					  type="range" ng-model="seekVolData" ng-change="seekVolume()">
+					</div>
+				 </div>
+
+				<div id="audioInfo"></div><span id="audioStaticinfo"></span>
+				  <button class="btn btn-danger" id="playSupport" 	ng-click="supportType('video/mp4','avc1.42E01E, mp4a.40.2')">Can Play?</button>
+				  <button class="btn btn-warning" id="playbuffered" ng-click="bufferedInfo()">Show Buffer</button>
+				  <button class="btn btn-sucess" id="playSource" 	ng-click="mediaSource()">Media Source</button>
+				 </div>
+		  		</div>	 
+</div>		  		
+<div class="container">		  		
+		<div class="container col-md-10" id="status">
+			
+		 <!--   <div class="form-group now-playing">
+			  <p>Now Playing: <img width="30" height="30" src="{{info.image}}" /></p>
+			  <p>{{info.artist.name}} - {{info.title}}</p>
+		    </div> -->
+
+			<div id="resultDiv">
+			  {{onload()}}
+			</div>
+        		</div>
+ </div>
+<div class="container">		
+<div class="container col-md-10" id="recordThis">
+	<h4>Local Audio loop back testing</h4>	
+	<div id="record_ctrl">
+	  <audio id="audioRecord" autoplay="autoplay" controls="controls"></audio><br><br>
+	  <button class="btn btn-danger" id="recordStart" ng-click="recordStart()">Record</button>
+	  <button class="btn btn-info" id="recordStop" ng-click="recordStop()">Stop Record</button>
+	 <div>
+
+	 <div id="canvasBox">
+	   <span id="canvasText"> Volume : </span><canvas id="graphic_volume" width="400" height="20"></canvas>
+	   <span id="canvasText"> Slow : </span><canvas id="graphic_slow" width="400" height="20"></canvas>
+	   <span id="canvasText"> Clipping : </span><canvas id="graphic_clip" width="400" height="20"></canvas>
+	 </div>	
+ </div>
 </div>
 
 <footer class="footer">

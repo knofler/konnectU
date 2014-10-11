@@ -49,7 +49,7 @@ angular.module('webrtcAppApp')
     }
     $('#chatName').val('');
     var chatRoom = $scope.rootUrl + roomname;
-    $('#url').html('<p class="urlCtrl">Chat room url is : <a href="http://'+chatRoom+'" id="joinRoom">'+chatRoom+'</a></p>');
+    $('#url').html('<div class="gap"><p class="urlCtrl">Chat room url is : <a href="http://'+chatRoom+'" id="joinRoom">'+chatRoom+'</a></p></div>');
     console.log(chatRoom);
 
     $scope.initChat(roomname);
