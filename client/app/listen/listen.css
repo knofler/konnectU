@@ -47,29 +47,87 @@ input.custSeeker{
   margin-left: -16px;
   height: 310px;
   padding-left: 20px;
-  padding-top: 10px;
+  padding-top: 5px;
 }
 
 #play{
 border: 1px solid #ddd;
-/*background-color: blue;*/
+
+background: #cedce7; /* Old browsers */
+background: -moz-linear-gradient(top,  #cedce7 0%, #596a72 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cedce7), color-stop(100%,#596a72)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #cedce7 0%,#596a72 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #cedce7 0%,#596a72 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #cedce7 0%,#596a72 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #cedce7 0%,#596a72 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cedce7', endColorstr='#596a72',GradientType=0 ); /* IE6-9 */
+
+
 display: block;
 /*clear: both;*/
 margin-left: -16px;
 margin-bottom: 10px;
+padding: 10px;
+padding-top: 5px;
+padding-left: 30px;
+padding-bottom: 30px;
+border-radius: 5px;
 }
-#status{
+
+#record{
 border: 1px solid #ddd;
-/*background-color: green;*/
+
+background: #7d7e7d; /* Old browsers */
+background: -moz-linear-gradient(top,  #7d7e7d 0%, #0e0e0e 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7d7e7d), color-stop(100%,#0e0e0e)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #7d7e7d 0%,#0e0e0e 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #7d7e7d 0%,#0e0e0e 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #7d7e7d 0%,#0e0e0e 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #7d7e7d 0%,#0e0e0e 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 ); /* IE6-9 */
+
+
 display: block;
+/*clear: both;*/
 margin-left: -16px;
 margin-bottom: 10px;
+padding: 10px;
+padding-top: 5px;
+padding-left: 30px;
+padding-bottom: 30px;
+border-radius: 5px;
+}
+
+#status{
+/*border: 1px solid #ddd;*/
+border-radius: 5px;
+background: #f2f5f6; /* Old browsers */
+background: -moz-linear-gradient(top,  #f2f5f6 0%, #e3eaed 37%, #c8d7dc 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2f5f6), color-stop(37%,#e3eaed), color-stop(100%,#c8d7dc)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #f2f5f6 0%,#e3eaed 37%,#c8d7dc 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #f2f5f6 0%,#e3eaed 37%,#c8d7dc 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #f2f5f6 0%,#e3eaed 37%,#c8d7dc 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #f2f5f6 0%,#e3eaed 37%,#c8d7dc 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f5f6', endColorstr='#c8d7dc',GradientType=0 ); /* IE6-9 */
+
+
+display: block;
+margin-left: -16px;
+margin-bottom:10px;
+/*width: auto;*/
+padding-left: 0px;
+overflow: hidden;
 }
 
 #playAudio{
-	margin-top: 10px;
-	padding: 10px;
+	/*margin-top: 10px;
+	padding: 10px;*/
 }
+
 #gap{
 	padding: 20px;
+}
+
+#recordPanel{
+	display: none;
 }

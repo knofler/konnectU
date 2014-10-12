@@ -208,19 +208,27 @@ angular.module('webrtcAppApp')
   		$scope.audioPlay.currentTime = seekto;
   	 }; 
 
+  	//UI control -- show record Div on button toggle
+  	
+  	$scope.showRecord = function(){
+  		$(document).on('click','#showRecord',function(){
+  			$('#recordPanel').toggle();
+  		});
+  	 }; 
+
   	//Web Audio Events
   	$scope.audioPlay.addEventListener('timeupdate',function(){
   			$scope.showCurrentTime = $scope.audioPlay.currentTime ;
 	  		document.querySelector("#audioInfo").innerHTML = "<p>Current Media time is : <span> <b>" + $scope.showCurrentTime +"</b></span><br />"+
 	  		"Current Media play rate is <span> <b>" + $scope.audioPlay.playbackRate + "</b></span><br />"+
 	  		"Repeat option enable is <span> <b>"+ $scope.audioPlay.loop + "</b></span></p>";
-	  		console.log("Current time is " + $scope.audioPlay.currentTime);
+	  		// console.log("Current time is " + $scope.audioPlay.currentTime);
 	  	  });
   	$scope.audioPlay.addEventListener('ended',function(){
   		document.querySelector("#audioInfo").innerHTML = "<p>Media Play ended status is : <span> <b>" + $scope.audioPlay.ended +"</b></span><br />"
   	 });
   	$scope.audioPlay.addEventListener('volumechange',function(){
-  	  console.log($scope.audioPlay.volume);
+  	  // console.log($scope.audioPlay.volume);
   	 });
   
 
