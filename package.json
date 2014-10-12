@@ -29,7 +29,8 @@
     "socket.io-client": "^1.0.6",
     "socketio-jwt": "^2.0.2",
     "mespeak": "~1.9.6",
-    "node-mailer": "~0.1.1"
+    "node-mailer": "~0.1.1",
+    "node-static" : "0.7.5"
   },
   "devDependencies": {
     "grunt": "~0.4.4",

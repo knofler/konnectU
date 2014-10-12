@@ -4,6 +4,30 @@
 
 <h1>File Share</h1>
 
+  <h2>
+    <span>Room URL: </span>
+    <span id="url">192.168.1.129:9000</span>
+  </h2>
+
+  <div id="videoCanvas">
+    <p>{{room}}</p>
+    <video id="camera" autoplay></video>
+    <canvas id="photo"></canvas>
+  </div>
+
+  <div id="buttons">
+    <button id="snap" ng-click="snapPhoto()">Snap</button>
+    <button id="send" ng-click="sendPhoto()">Send Photo</button>
+    <button id="snapAndSend" ng-click="snapAndSend()">Snap &amp; Send</button>
+    <button id="stream" ng-click="sendStream()">Stream</button>
+  </div>
+
+  <div id="incoming">
+    <h2>Incoming photos</h2>
+    <div id="trail"></div>
+  </div>
+</div>
+
 </div>
 </div>
 
