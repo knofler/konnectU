@@ -179,6 +179,12 @@ $(document).on('click','#joinRoom',function(e){
 
 // ScreenSharing
   $('#shareScreenButton').change(function() {
+    var action = ($(this).is(":checked")) ? 'share':'unshare';
+    function cantShare(err){
+      $.notify(err, 'error');
+      return;
+    }
+    if (!peers.local.screenShared && action === 'share'){
       webrtc.shareScreen(function(err){
         // An error occured while sharing our screen
         if(err){
@@ -191,10 +197,17 @@ $(document).on('click','#joinRoom',function(e){
               $('#chromeExtMessage').modal('show');
             }
             else{
-              cantShare(locale.SCREEN_SHARING_ONLY_FOR_CHROME);
+              // cantShare(locale.SCREEN_SHARING_ONLY_FOR_CHROME);
             }
           }
-          
+          // This error usually means you have denied access (old flag way)
+          // or you cancelled screen sharing (new extension way)
+          else if (err.name == 'PERMISSION_DENIED' || err.name == 'PermissionDeniedError'){
+            cantShare(locale.SCREEN_SHARING_CANCELLED);
+          }
+          else{
+            // cantShare(locale.CANT_SHARE_SCREEN);
+          }
           $('#shareScreenLabel').removeClass('active');
           return;
         }
@@ -205,6 +218,13 @@ $(document).on('click','#joinRoom',function(e){
           $.notify(locale.EVERYONE_CAN_SEE_YOUR_SCREEN, 'info');
         }
       });
+    }
+    else{
+      peers.local.screenShared = false;
+      webrtc.stopScreenShare();
+      $('#shareScreenLabel').removeClass('btn-danger');
+      // $.notify(locale.SCREEN_UNSHARED, 'info');
+    }
   });
 
 

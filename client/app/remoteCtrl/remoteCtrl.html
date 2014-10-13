@@ -16,13 +16,182 @@
         Share your screen, or just a window with others. Only available with Google Chrome for now.
     </div>
     <div>
-      <label class="btn btn-default help" id="shareScreenLabel" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Share your screen with the other members of this room">
+     <input type="checkbox" id="pauseMohButton">
+            <span class="glyphicon glyphicon-music">
+            </span>
+          </label>
+          <label class="btn btn-default help" id="shareScreenLabel" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Share your screen with the other members of this room">
             <input type="checkbox" id="shareScreenButton">
             <span class="glyphicon glyphicon-expand">
             </span>
           </label>
+        </div>
+        <div class="btn-group navbar-form navbar-left">
+          <div class="btn-group dropdown ownerEl" style="display: block;">
+            <button class="btn btn-default dropdown-toggle help" type="button" id="inviteMenuButton" data-toggle="dropdown" data-placement="bottom" title="" data-original-title="Invite other people">
+              <span class="glyphicon glyphicon-user">
+              </span>
+              <span class="caret">
+              </span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="inviteMenuButton" id="inviteMenu">
+              <li class="text-center">
+                <p>
+                  Send this address to anyone and he will be able to join this room
+                </p>
+                
+                <h4>
+                  <a href="javascript:void(0)" onclick="inviteUrlPopup();">
+                    https://vroom.im/rumman
+                  </a>
+                </h4>
+              </li>
+              <li class="divider">
+              </li>
+              <li>
+                <div class="text-center">
+                  <button type="button" class="btn btn-default help" id="showEmailInvite" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="You can also directly send an invitation by email">
+                    <span class="glyphicon glyphicon-envelope">
+                    </span>
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="btn-group dropdown ownerEl threePeersEl" style="">
+            <button class="btn btn-default dropdown-toggle help" type="button" id="groupActionsButton" data-toggle="dropdown" data-placement="bottom" title="" data-original-title="Grouped actions">
+              <span class="glyphicon glyphicon-flag">
+              </span>
+              <span class="caret">
+              </span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="groupActionsButton" id="confMenu">
+              <li class="text-center">
+                <div class="navbar-form">
+                  <div class="btn-group" data-toggle="buttons">
+                    <button type="button" class="btn btn-default help" id="muteEveryoneButton" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Mute everyone">
+                      <span class="glyphicon glyphicon-volume-off">
+                      </span>
+                    </button>
+                    <button type="button" class="btn btn-default help" id="unmuteEveryoneButton" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Unmute everyone">
+                      <span class="glyphicon glyphicon-volume-up">
+                      </span>
+                    
+                    </button><button type="button" class="btn btn-default help" id="suspendEveryoneButton" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Suspend everyone's webcam">
+                      <span class="glyphicon glyphicon-eye-close">
+                      </span>
+                    </button>
+                    <button type="button" class="btn btn-default help" id="resumeEveryoneButton" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Resume everyone's webcam">
+                      <span class="glyphicon glyphicon-eye-open">
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="btn-group dropdown ownerEl" style="display: block;">
+            <button class="btn btn-default dropdown-toggle help" type="button" id="confMenuButton" data-toggle="dropdown" data-placement="bottom" title="" data-original-title="Configuration">
+              <span class="glyphicon glyphicon-wrench">
+              </span>
+              <span class="caret">
+              </span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="confMenuButton" id="confMenu">
+              <li class="text-center">
+                <div class="navbar-form">
+                  <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default help" id="lockLabel" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Prevent other participants to join this room">
+                      <input type="checkbox" id="lockButton">
+                      <span class="glyphicon glyphicon-ban-circle">
+                      </span>
+                    </label>
+                    <label class="btn btn-default help" id="joinPassLabel" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Password protect">
+                      <input type="checkbox" id="joinPassButton">
+                      <span class="glyphicon glyphicon-lock">
+                      </span>
+                    </label>
+                    <label class="btn btn-default help" id="ownerPassLabel" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Reserve this room">
+                      <input type="checkbox" id="ownerPassButton">
+                      <span class="glyphicon glyphicon-pushpin">
+                      </span>
+                    </label>
+                    <label class="btn btn-default help" id="askForNameLabel" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Participants will be asked for their name before they can join the room">
+                      <input type="checkbox" id="askForNameButton">
+                      <span class="glyphicon glyphicon-leaf">
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </li>
+              <li class="divider">
+              </li>
+              <li class="text-center">
+                <div class="navbar-form">
+                  <div class="btn-group">
+                    
+                    <button id="wipeDataButton" class="btn btn-default help" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Wipe chat history and pad content">
+                      <span class="glyphicon glyphicon-fire">
+                      </span>
+                    </button>
+                    <button id="terminateRoomButton" class="btn btn-default help" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Stop the call and delete the room">
+                      <span class="glyphicon glyphicon-trash">
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </li>
+              <li class="divider">
+              </li>
+              <li>
+                <p class="text-center">
+                  You can set a list of email address which will receive a notification each time someone joins this room
+                </p>
+                <ul class="list-inline" id="emailNotificationList">
+                </ul>
+                <form class="navbar-form" id="newEmailNotificationForm">
+                  <div class="input-group">
+                    <input type="email" id="newEmailNotification" class="form-control help" placeholder="j.smith@example.com" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Add a notification">
+                    <span class="input-group-btn">
+                      <button id="newEmailNotificationButton" type="submit" class="btn btn-default help disabled" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Add this address">
+                        <span class="glyphicon glyphicon-ok">
+                        </span>
+                      </button>
+                    </span>
+                  </div>
+                </form>
+              </li>
+            </ul>
+          </div>
+        </div>
     </div>
 </div>
+ <div class="modal fade" role="dialog" id="chromeExtMessage" aria-labelledby="chromeExtMessage" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+              ×
+            </button>
+            <h4 class="modal-title" id="chromeExtMessageTitle">
+              An extension is required
+            </h4>
+          </div>
+          <div clas="modal-body">
+            <p>
+              To enable screen sharing, you need to install an extension. Click on the following link and refresh this page
+            </p>
+            <p>
+              <a class="btn btn-default btn-lg" href="https://chrome.google.com/webstore/detail/lfkdfilifapafomlhaaihfdglamkmdme" target="_blank">
+                <span class="glyphicon glyphicon-download-alt">
+                </span>
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
 <div class="container" id="chat">
   <div class="container" id="url"></div>
   <div class="container">
