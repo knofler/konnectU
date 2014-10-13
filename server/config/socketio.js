@@ -51,6 +51,10 @@ module.exports = function (socketio) {
       console.info('[%s] DISCONNECTED', socket.address);
     });
 
+       socket.on('sendData',function(data){
+      socket.broadcast.emit('chat',{srvmsg:data.msg})
+     });
+
         function log() {
       var array = ['Message from server:'];
       array.push.apply(array, arguments);

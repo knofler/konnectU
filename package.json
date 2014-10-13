@@ -30,7 +30,8 @@
     "socketio-jwt": "^2.0.2",
     "mespeak": "~1.9.6",
     "node-mailer": "~0.1.1",
-    "node-static" : "0.7.5"
+    "node-static": "0.7.5",
+    "browserify": "~6.0.3"
   },
   "devDependencies": {
     "grunt": "~0.4.4",

@@ -66,6 +66,7 @@ angular.module('webrtcAppApp')
 
     //Instantiate SimpleWebRTC without audio video element injection 
     webrtc = new SimpleWebRTC({autoRequestMedia: true });
+    console.log(webrtc);
 
     // we have to wait until it's ready
     webrtc.on('readyToCall', function () {
