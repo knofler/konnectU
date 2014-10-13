@@ -4,7 +4,7 @@ angular.module('webrtcAppApp')
   .controller('ChatCtrl', function ($scope) {
   
   var webrtc ;
-  $scope.rootUrl = '192.168.1.129:9000/chat#' ;
+  $scope.rootUrl = 'http://konnectu.herokuapp.com/chat#' ;
   $scope.room = window.location.hash.substring(1);
   console.log($scope.room); 
 
