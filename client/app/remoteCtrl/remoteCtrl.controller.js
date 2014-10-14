@@ -68,30 +68,68 @@ angular.module('webrtcAppApp')
     //Instantiate SimpleWebRTC without audio video element injection 
     webrtc = new SimpleWebRTC({autoRequestMedia: true });
     console.log(webrtc);
+    console.log("SimpleWebRTC initiated");
 
     // we have to wait until it's ready
     webrtc.on('readyToCall', function () {
+      console.log("webrtc readyToCall");
       webrtc.joinRoom(roomname);
      });
 
     webrtc.on('joinedRoom',function(){
+      console.log("webrtc joined");
       $('#connection').append('<li class="statusCtrl"> user has joined <span id="roomCss">'+ roomname+ '</span> </li>')
       console.log(roomname + ' room joined');
      });
 
       // We share our screen
-      webrtc.on('localScreenAdded', function(video){
-        // addVideo(video);
-        document.body.appendChild(video);
-       });
+      // webrtc.on('localScreenAdded', function(video){
+      //   // addVideo(video);
+      //   document.body.appendChild(video);
+      //  });
 
     // Handle dataChannel messages (incoming)
     webrtc.on('channelMessage', function (peer, label, data){
       // One peer just sent a text chat message
+      console.log("channelMessage happening");
       if (data.type == 'textChat'){
         $scope.newChatMessage(peer,data.payload);
        }
-   });
+    });
+
+  var screen = new Screen();
+  console.log("Screen initiated");
+   
+    // get shared screens
+    screen.onaddstream = function(e) {
+      console.log("screen onaddstream available to share");
+        document.body.appendChild(e.video);
+    };
+
+
+  // custom signaling channel
+  // you can use each and every signaling channel
+  // any websocket, socket.io, or XHR implementation
+  // any SIP server
+  // anything! etc.
+  // screen.openSignalingChannel = function(callback) {
+  //     return io.connect().on('message', callback);
+  // };
+
+  // check pre-shared screens
+  // it is useful to auto-view
+  // or search pre-shared screens
+  // screen.check();
+
+  document.getElementById('share-screen').onclick = function() {
+    console.log("share screen button clicked");
+    screen.share();
+    console.log("screen shared");
+   };
+
+  // to stop sharing screen
+  // screen.leave();
+
 
     // Chat: send to other peers
   $scope.createChat_window = function(roomname){
@@ -145,7 +183,8 @@ angular.module('webrtcAppApp')
        }
      $('#chatBox').val('');
      });
-    };
+
+};
   $(document).on('click','#joinRoom',function(e){
     e.preventDefault();
     var roomname = window.location.hash.substring(1);
@@ -156,36 +195,6 @@ angular.module('webrtcAppApp')
       $scope.joinRoom();
    };
 
-  var screen = new Screen();
-   
-
-  // get shared screens
-  // screen.onaddstream = function(e) {
-  //     document.body.appendChild(e.video);
-  // };
-
-
-
-  // custom signaling channel
-  // you can use each and every signaling channel
-  // any websocket, socket.io, or XHR implementation
-  // any SIP server
-  // anything! etc.
-  // screen.openSignalingChannel = function(callback) {
-  //     return io.connect().on('message', callback);
-  // };
-
-  // check pre-shared screens
-  // it is useful to auto-view
-  // or search pre-shared screens
-  // screen.check();
-
-  document.getElementById('share-screen').onclick = function() {
-      screen.share();
-  };
-
-  // to stop sharing screen
-  // screen.leave();
 
 
 
