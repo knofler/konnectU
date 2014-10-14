@@ -66,7 +66,7 @@ angular.module('webrtcAppApp')
   $scope.joinRoom = function(){
     $('#chatJoinDiv').hide();  
     $scope.initChat($scope.room);
-    $scope.createChat_window($scope.room);
+    // $scope.createChat_window($scope.room);
    };  
   $scope.initChat = function(roomname){
 
@@ -103,8 +103,8 @@ angular.module('webrtcAppApp')
 
       screen.onaddstream = function(e) {
       console.log("screen onaddstream available to share");
-        // document.body.appendChild(e.video);
-        $scope.sharedScreen(peer,e);
+        document.body.appendChild(e.video);
+        // $scope.sharedScreen(peer,e);
       };       
   
    });
