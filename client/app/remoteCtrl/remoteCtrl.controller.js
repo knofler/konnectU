@@ -80,9 +80,9 @@ angular.module('webrtcAppApp')
      });
 
       // We share our screen
-      webrtc.on('localScreenAdded', function(e){
+      webrtc.on('localScreenAdded', function(video){
         // addVideo(video);
-        document.body.appendChild(e.video);
+        document.body.appendChild(video);
        });
 
     // Handle dataChannel messages (incoming)
