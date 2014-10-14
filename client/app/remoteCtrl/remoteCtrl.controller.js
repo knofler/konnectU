@@ -103,8 +103,9 @@ angular.module('webrtcAppApp')
 
       screen.onaddstream = function(e,peer) {
       console.log("screen onaddstream available to share");
-        // document.body.appendChild(e.video);
-        $scope.sharedScreen(peer,e);
+        document.body.appendChild(e.video);
+        console.log("peer is here " + peer);
+        // $scope.sharedScreen(peer,e);
       };       
   
    });
