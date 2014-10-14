@@ -60,7 +60,7 @@ module.exports = function (socketio) {
       array.push.apply(array, arguments);
       socket.emit('log', array);
       };
-    socket.on('message', function(message) {
+    socket.on('messagefile', function(message) {
       log('Client said: ', message);
       // for a real app, would be room-only (not broadcast)
       socket.broadcast.emit('message', message);

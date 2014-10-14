@@ -70,7 +70,7 @@ socket.socket.on('ready', function() {
 socket.socket.on('log', function(array) {
   console.log.apply(console, array);
  });
-socket.socket.on('message', function(message) {
+socket.socket.on('messagefile', function(message) {
   console.log('Client received message:', message);
   $scope.signalingMessageCallback(message);
  });
