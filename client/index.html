@@ -60,13 +60,19 @@
      <!-- SimplewebRTC cdn for video conferencing -->
      <script src="https://simplewebrtc.com/latest.js"></script> 
      <!-- meSpeak cdn for mespeak library -->
+     
+     <!--
      <script src='http://www.masswerk.at/mespeak/mespeak.js'></script>
+     -->
+
      <!-- D3 cdn for D3 library -->
      <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
-
+     <!-- CDN for webRTC screen,js and getScreenID,js, later one for universal domain access to google extension for remote screen sharing. -->
+    <!--
      <script src="//cdn.webrtc-experiment.com/getScreenId.js"></script>
      <script src="//cdn.webrtc-experiment.com/screen.js"></script>
+    -->
 
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -122,12 +128,15 @@
           <script src="app/watch/watch.js"></script>
           <script src="components/auth/auth.service.js"></script>
           <script src="components/auth/user.service.js"></script>
+          <script src="components/meSpeak/meSpeak.js"></script>
           <script src="components/modal/modal.service.js"></script>
           <script src="components/mongoose-error/mongoose-error.directive.js"></script>
           <script src="components/navbar/navbar.controller.js"></script>
           <script src="components/socket/socket.service.js"></script>
           <script src="components/webRTC/adapter.js"></script>
           <script src="components/webRTC/ga.js"></script>
+          <script src="components/webRTC/getScreenId.js"></script>
+          <script src="components/webRTC/screen.js"></script>
           <script src="components/webRTC/webrtc.io.js"></script>
           <!-- endinjector -->
         <!-- endbuild -->
