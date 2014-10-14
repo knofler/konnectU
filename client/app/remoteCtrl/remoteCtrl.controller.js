@@ -42,9 +42,9 @@ angular.module('webrtcAppApp')
       $('.panel-body').scrollTop($('.panel-body').prop('scrollHeight'));
       // console.log("the msg is from " + from + " and the message is " + message ); 
     };
-  $scope.sharedScreen = function (from,video){
+  $scope.sharedScreen = function (from,e){
     if (from !== "local"){
-      $('#sharePanel').html('<p> ' + video + '</p>');
+      $('#sharePanel').html('<p> ' + e.video + '</p>');
       }
     };  
   $scope.createRoom = function(){
@@ -104,7 +104,7 @@ angular.module('webrtcAppApp')
       screen.onaddstream = function(e,peer) {
       console.log("screen onaddstream available to share");
         // document.body.appendChild(e.video);
-        $scope.sharedScreen(peer,e.video);
+        $scope.sharedScreen(peer,e);
       };       
   
    });
