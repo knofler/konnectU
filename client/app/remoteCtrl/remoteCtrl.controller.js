@@ -64,7 +64,7 @@ angular.module('webrtcAppApp')
     
    };  
   $scope.joinRoom = function(){
-    $('#chatJoinDiv').hide();  
+    $('#remoteJoinDiv').hide();  
     $scope.initChat($scope.room);
     // $scope.createChat_window($scope.room);
    };  
