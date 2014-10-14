@@ -42,6 +42,11 @@ angular.module('webrtcAppApp')
       $('.panel-body').scrollTop($('.panel-body').prop('scrollHeight'));
       // console.log("the msg is from " + from + " and the message is " + message ); 
     };
+  $scope.sharedScreen = function (from,video){
+    if (from !== "local"){
+      $('#sharePanel').html('<p> ' + video + '</p>');
+      }
+    };  
   $scope.createRoom = function(){
     //grab chat room name
     var roomname = $("#chatName").val();
@@ -103,7 +108,8 @@ angular.module('webrtcAppApp')
     // get shared screens
     screen.onaddstream = function(e) {
       console.log("screen onaddstream available to share");
-        document.body.appendChild(e.video);
+        // document.body.appendChild(e.video);
+        $scope.sharedScreen(peer,e.video);
     };
 
 
