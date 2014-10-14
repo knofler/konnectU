@@ -100,17 +100,24 @@ angular.module('webrtcAppApp')
       if (data.type == 'textChat'){
         $scope.newChatMessage(peer,data.payload);
        }
-    });
+
+      screen.onaddstream = function(e) {
+      console.log("screen onaddstream available to share");
+        // document.body.appendChild(e.video);
+        $scope.sharedScreen(peer,e.video);
+      };       
+  
+   });
 
   var screen = new Screen();
   console.log("Screen initiated");
    
     // get shared screens
-    screen.onaddstream = function(e) {
-      console.log("screen onaddstream available to share");
-        // document.body.appendChild(e.video);
-        $scope.sharedScreen(peer,e.video);
-    };
+    // screen.onaddstream = function(e) {
+    //   console.log("screen onaddstream available to share");
+    //     // document.body.appendChild(e.video);
+    //     $scope.sharedScreen(peer,e.video);
+    // };
 
 
   // custom signaling channel
