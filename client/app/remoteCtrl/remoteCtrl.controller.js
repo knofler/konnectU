@@ -59,7 +59,7 @@ angular.module('webrtcAppApp')
     console.log(chatRoom);
 
     $scope.initChat(roomname);
-    $scope.createChat_window(roomname);
+    // $scope.createChat_window(roomname);
     // window.location.assign(chatRoom);
     
    };  
@@ -97,14 +97,14 @@ angular.module('webrtcAppApp')
     webrtc.on('channelMessage', function (peer, label, data){
       // One peer just sent a text chat message
       console.log("channelMessage happening");
-      if (data.type == 'textChat'){
-        $scope.newChatMessage(peer,data.payload);
-       }
+      // if (data.type == 'textChat'){
+      //   $scope.newChatMessage(peer,data.payload);
+      //  }
 
       screen.onaddstream = function(e) {
       console.log("screen onaddstream available to share");
         // document.body.appendChild(e.video);
-        $scope.sharedScreen(peer,e.video);
+        $scope.sharedScreen(peer,e);
       };       
   
    });
@@ -120,18 +120,10 @@ angular.module('webrtcAppApp')
     // };
 
 
-  // custom signaling channel
-  // you can use each and every signaling channel
-  // any websocket, socket.io, or XHR implementation
-  // any SIP server
-  // anything! etc.
   // screen.openSignalingChannel = function(callback) {
   //     return io.connect().on('message', callback);
   // };
 
-  // check pre-shared screens
-  // it is useful to auto-view
-  // or search pre-shared screens
   // screen.check();
 
   document.getElementById('share-screen').onclick = function() {
@@ -140,7 +132,7 @@ angular.module('webrtcAppApp')
     console.log("screen shared");
    };
 
-  // to stop sharing screen
+
   // screen.leave();
 
 
