@@ -5,19 +5,21 @@ angular.module('webrtcAppApp')
 
 d3.json('assets/dataDir/data.json',function(err,pics){
 
-		//capture data ina avariable		
-		var data = pics.data.children;
+	//capture data in a avariable		
+	var data = pics.data.children;
 
-		var display = d3.select('#display');
+	//parent Div where table will be inserted
+	var display = d3.select('#display');
 
-		//table container
-		var tdiv = display.append("div").classed("table",true);
+	//table container
+	var tdiv = display.append("div").classed("table",true);
 
-		var table = d3.chart.table();
-		//set Data to table
-		table.data(data);
-		//render table
-		table(tdiv);
+	//instantiate chart function
+	var table = d3.chart.table();
+	//set Data to table
+	table.data(data);
+	//render table
+	table(tdiv);
 		
 	 });	
 
