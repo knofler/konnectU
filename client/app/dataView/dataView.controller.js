@@ -3,88 +3,94 @@
 angular.module('webrtcAppApp')
   .controller('DataviewCtrl', function ($scope) {
 
-d3.json('assets/dataDir/data.json',function(err,pics){
+  	//make json or api call to get the data and run reusable chart functions, in this ase table function for a table
+	d3.json('assets/dataDir/data.json',function(err,pics){
+		//capture data in a avariable		
+		var data = pics.data.children;
+		//parent Div where table will be inserted
+		var display = d3.select('.col-md-12');
 
-	//capture data in a avariable		
-	var data = pics.data.children;
-
-	//parent Div where table will be inserted
-	var display = d3.select('#display');
-
-	//table container
-	var tdiv = display.append("div").classed("table",true);
-
-	//instantiate chart function
-	var table = d3.chart.table();
-	//set Data to table
-	table.data(data);
-	//render table
-	table(tdiv);
-		
+		//table container
+		var tdiv = display.append("div").classed("table-responsive",true);
+		//instantiate chart function
+		var table = d3.chart.table();
+		//set Data to table
+		table.data(data);
+		//render table
+		table(tdiv);		
 	 });	
+	
+	//Construction of reusable table function in d3 chart object
+	if (!d3.chart) d3.chart = {};
+	d3.chart.table = function(){ 
+	
+		var data;
+		var width;
 
-if (!d3.chart) d3.chart = {};
-d3.chart.table = function(){ 
-	var data;
-	var width;
-	//reusable chart pattern
-	function chart (container){
+		//reusable chart pattern
+		function chart (container){
+			//initialization code
 
-		//initialization code
-		var table = container.append("table");
+			//append dynamic table with responsive bootstrap into container div 
+			var table = container.append("table").classed("table table-bordred table-striped",true);
+			//append thead to table
+			var thead = table.append('thead');
+			//append tbody to table
+			var tbody = table.append('tbody');
+			//selectAll rows with with data to tbody element, use selectAll as this are dynamic entries and non exisyent till now.
+			var rows = tbody.selectAll("tr").data(data);
 
-		//apend rows with class .row on table element
-		var rows = table.append("tr").data(data);
-		// //create dynamic rows binded with data and define class
-		var rowsEnter = rows.enter()
-		.append("tr").classed("row",true);
+			//create all dynamic rows with enter() command
+			var rowsEnter = rows.enter()
+			.append("tr");
 
-		// //Create columns with cell data in each row
-		rowsEnter.append("td")
-		.text(function(d){return d.data.score });
-
-		rowsEnter.append("td")
-		.append("a")
-		.attr({
-		 href:function(d){return d.data.url }
-		 })
-		.append("img")
-		.attr({
-		  src: function(d){return d.data.thumbnail }
-		 });
-
-		rowsEnter.append("td")
-		.append("a")
-		.attr({
-		 href:function(d){return d.data.url }
-		 })
-		.text(function(d){return d.data.title });
+			//Create columns with cell data in each row --column-1
+			rowsEnter.append("td")
+			 .text(function(d){return d.data.score });
+			// Column-2
+			rowsEnter.append("td") 
+			 .append("a")
+			 .attr({
+			   href:function(d){return d.data.url }
+			  })
+			 .append("img")
+			 .attr({
+			   src: function(d){return d.data.thumbnail }
+			  });
+			// Column-3
+			rowsEnter.append("td")
+			 .append("a")
+			 .attr({
+			   href:function(d){return d.data.url }
+			  })
+			 .text(function(d){return d.data.title });
+			// Column-4
+			rowsEnter.append("td")
+			 .text(function(d){return d.data.ups });
+			// Column-5
+			rowsEnter.append("td")
+			.text(function(d){return d.data.downs });	
+			//exit() method to adjust automatic row removal
+			rows.exit().remove();
+			// console.log("container",container);
+			console.log("data",data);
+			// console.log("width",width);
+		 };
+		//grab data
+		chart.data  = function(value){
+		 	if(!arguments.length) return data;
+		 	data = value;
+		 	return chart;
+		 };
+		//width function 
+		chart.width = function(value){
+		  if(!arguments.length) return width;
+		 	width = value;
+		 	return chart;
+		 };
+		 //return chart function as the condition of reusable chart pattern
 		
-		
-		rowsEnter.append("td")
-		.text(function(d){return d.data.ups });
-
-		rowsEnter.append("td")
-		.text(function(d){return d.data.downs });	
-
-		rows.exit().remove();
-
-		 // console.log("container",container);
-		 console.log("data",data);
-		 // console.log("width",width);
-	 };
-	//grab data
-	chart.data  = function(value){
-	 	if(!arguments.length) return data;
-	 	data = value;
-	 	return chart;
-	 };
-	chart.width = function(value){
-	  if(!arguments.length) return width;
-	 	width = value;
-	 	return chart;
-	 };
-	return chart;
-   };
+		return chart;
+     };
   	
-});
+ });
