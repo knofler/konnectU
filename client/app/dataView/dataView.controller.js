@@ -73,7 +73,7 @@ angular.module('webrtcAppApp')
 			//exit() method to adjust automatic row removal
 			rows.exit().remove();
 			// console.log("container",container);
-			console.log("data",data);
+			// console.log("data",data);
 			// console.log("width",width);
 		 };
 		//grab data
@@ -93,6 +93,7 @@ angular.module('webrtcAppApp')
 		return chart;
      };
 
+    //data calling from api 
 	d3.json('/api/things/',function(err,thing){
 		//capture data in a avariable		
 		var data = thing;
@@ -141,7 +142,7 @@ angular.module('webrtcAppApp')
 			//exit() method to adjust automatic row removal
 			rows.exit().remove();
 			// console.log("container",container);
-			console.log("data",data);
+			// console.log("data",data);
 			// console.log("width",width);
 		 };
 		//grab data
@@ -161,43 +162,104 @@ angular.module('webrtcAppApp')
 		return chart;
      }; 
 	
-d3.json('assets/dataDir/data.json',function(err,data){
-		// capture data in a avariable		
-		console.log("this is new")
-	var test = data.data.children; 
-		console.log(test);
+	//histogram layout with reddit data json
+	d3.json('assets/dataDir/data.json',function(err,pics){
+	 var data = pics.data.children; 
+	 // var data 	= [10,22,33,11,44,55,33,30,11,66];
+	 var histogram = d3.layout.histogram()
+	 	.value(function(d){ return d.data.score ;})
+	 	// .range([d3.min(data.data.score),d3.max(data.data.score)])
+	 	.bins(20);
 
-	 d3.select("#display_panel")
-		.selectAll("div")
-		.data(test)
-		.enter().append("div")
-		.style('width',function(d){return d.score *10 + "px";})
-		.text(function(d){return d ;}) 
+	 var layoutDy = histogram(data);
+
+	 var svgTop = d3.select("#svg2");
+
+	 svgTop.selectAll('div')
+	 .data(layoutDy)
+	 .enter().append("rect").classed("histBar", true)
+	 .attr({
+	 	x: function(d,i){
+	 		return 150+i * 30;
+	 	},
+	 	y:50,
+	 	width:20,
+	 	height:function(d){
+	 		return 20 * d.length;
+	 	}
+	 	})
+	 .style({
+			fill  : "steelblue"
+		})
 
 	 });	
 
-	var data =[10,22,33,11,44,55,33,30,11,66];
+	//Bar chart with axis CSV data
 
-		var hist = d3.layout.histogram()
-			.value(function(d){return d;})
-			.range([0,d3.max(data)])
-			.bins(10);
+	var margin = {top: 20, right: 50, bottom: 80, left: 50},
+		width =	 960 - margin.left - margin.right,
+		height = 500 - margin.top - margin.bottom;
 
-		var layout = hist(data);	
-		console.log("histogram: ", layout );
+	//Define scale first
+	var x = d3.scale.ordinal()
+		.rangeRoundBands([0,width], .1);	
+	var y = d3.scale.linear()
+		.range([height,0]);
+	//insert scales to appropriate axis 	
+	var xAxis = d3.svg.axis()
+		.scale(x)
+		.orient("bottom");
+	var yAxis = d3.svg.axis()
+		.scale(y)
+		.orient("left");
 
-	var svg = d3.select("svg");
-		svg.selectAll('div')
-		.data(layout)
-		.enter().append("rect")
-		.attr({
-			x:function(d,i){
-				return 150+i * 30;				
-			   },
-			y:50,
-			width:20,
-			height:function(d,i){
-				return 20 * d.length;s
-			}   
-		})
+	//create chart in any svg container		
+	var chart = d3.select("#svg1")
+		.attr("width",width + margin.left + margin.right)
+		.attr("height",height + margin.top +margin.bottom)
+		.append("g")
+		.attr("transform","translate(" + margin.left + "," + margin.top + ")");  //This is used for creating the margin for axises
+
+	//load data from csv	
+	d3.csv("assets/dataDir/data.csv",type,function(error,data){
+		// console.log(data);
+
+		//define domain with data range
+		x.domain(data.map(function(d) { return d.name; }));
+		y.domain([0, d3.max(data, function(d) { return d.value; })]);
+
+		//append and call xAxis to display xAxis
+	   	chart.append("g")
+	      .attr("class", "x axis")
+	      .attr("transform", "translate(0," + height + ")")
+	      .call(xAxis);
+
+	    //append and call yAxis to display yAxis 
+	   	chart.append("g")
+	      .attr("class", "y axis")
+	      .call(yAxis)
+	      .append("text")
+	      .attr("transform","rotate(-90)")
+	      .attr("y",5)
+	      .attr("dy",".71em")
+	      .style("text-anchor","end")
+	      .text("information");
+
+	    // insert data and bind to virtual elements for bar charts  
+	   	chart.selectAll(".bar")
+	      .data(data)
+	    .enter().append("rect")
+	      .attr("class", "bar")
+	      .attr("x", function(d) { return x(d.name); })
+	      .attr("y", function(d) { return y(d.value); })
+	      .attr("height", function(d) { return height - y(d.value); })
+	      .attr("width", x.rangeBand());
+		});
+
+	function type(d) {
+  		d.value = +d.value; // coerce to number
+  		return d;
+		}
+
+
  });
