@@ -210,8 +210,8 @@ angular.module('webrtcAppApp')
 		width =	 960 - margin.left - margin.right,
 		height = 500 - margin.top - margin.bottom;
 	//Define scale first
-	var x = d3.scale.ordinal().rangeRoundBands([0,width], .1);	
-	var y = d3.scale.linear().range([height,0]);
+	var x = d3.scale.ordinal().rangeRoundBands([0,width],.75);	
+	var y = d3.scale.linear().range([height,100]);
 	//insert scales to appropriate axis 	
 	var xAxis = d3.svg.axis()
 		.scale(x)
@@ -224,7 +224,7 @@ angular.module('webrtcAppApp')
 		.attr("width",width + margin.left + margin.right)
 		.attr("height",height + margin.top +margin.bottom)
 		.append("g")
-		.attr("transform","translate(" + margin.left + "," + margin.top + ")");  //This is used for creating the margin for axises
+		.attr("transform","translate(" + margin.right + "," + margin.top + ")");  //This is used for creating the margin for axises
 		
 	function type(d) {
   	  d.value = +d.value; // coerce to number
@@ -232,7 +232,7 @@ angular.module('webrtcAppApp')
 	 };	
 
 
-	// load data from csv	
+	// **************load data from csv*************************	
 	d3.csv("assets/dataDir/data.csv",type,function(error,data){
 		// console.log(data);
 
@@ -268,7 +268,7 @@ angular.module('webrtcAppApp')
 	      .attr("width", x.rangeBand());
 		});
 	
-	// load data from Static JSON	
+	// **************load data from Static JSON*****************	
 	// d3.json('assets/dataDir/data.json',function(err,pics){
 	//   var data = pics.data.children;
 
@@ -305,6 +305,43 @@ angular.module('webrtcAppApp')
 	//       .attr("height", function(d) { return height - y(d.data.score); })
 	//       .attr("width", x.rangeBand());
 	// 	});
+
+	// **************load data from API call********************
+	// d3.json("/api/dataViews/",function(err,data){
+
+	// 	//define domain with data range
+	// 	x.domain([0,d3.max(data,function(d){return d.LicenseCount ;})]);
+	// 	y.domain([0,d3.max(data,function(d) {return d.LicenseUsed ; })]);
+
+	// 	console.log(data);
+	// 	//append and call xAxis to display xAxis
+	// 	chart.append("g")
+	// 	.attr("class","x axis")
+	// 	.attr("transform","translate(0,"+ height +")")
+	// 	.call(xAxis);
+
+	// 	//append and call yAxis to display yAxis
+	// 	chart.append("g")
+	// 	.attr("class","y axis")
+	// 	.call(yAxis)
+	// 	.append("text")
+	// 	.attr("transform","rotate(-90)")
+	// 	.attr("y",5)
+	// 	.attr("dy",".71em")
+	// 	.style("text-anchor","end")
+	// 	.text("information");
+
+	// 	// insert data and bind to virtual elements for bar charts  
+	// 	chart.selectAll(".bar")
+	// 	.data(data)
+	// 	.enter().append("rect")
+	// 	.attr("class","bar")
+	// 	.attr("x",function(d){return x(d.LicenseCount);})
+	// 	.attr("y",function(d){return y(d.LicenseUsed) ;})
+	// 	.attr("height",function(d){return height - y(d.LicenseUsed) ;})
+	// 	.attr("width",10);
+
+	//  });	
 
 
 
