@@ -215,10 +215,11 @@ angular.module('webrtcAppApp')
 	//insert scales to appropriate axis 	
 	var xAxis = d3.svg.axis()
 		.scale(x)
-		.orient("bottom");
+		.orient("bottom")
 	var yAxis = d3.svg.axis()
 		.scale(y)
 		.orient("left");
+
 	//create chart in any svg container		
 	var chart = d3.select("#svg1")
 		.attr("width",width + margin.left + margin.right)
@@ -233,40 +234,40 @@ angular.module('webrtcAppApp')
 
 
 	// **************load data from csv*************************	
-	d3.csv("assets/dataDir/data.csv",type,function(error,data){
-		// console.log(data);
+	// d3.csv("assets/dataDir/data.csv",type,function(error,data){
+	// 	// console.log(data);
 
-		//define domain with data range
-		x.domain(data.map(function(d) { return d.name; }));
-		y.domain([0, d3.max(data, function(d) { return d.value; })]);
+	// 	//define domain with data range
+	// 	x.domain(data.map(function(d) { return d.name; }));
+	// 	y.domain([0, d3.max(data, function(d) { return d.value; })]);
 
-		//append and call xAxis to display xAxis
-	   	chart.append("g")
-	      .attr("class", "x axis")
-	      .attr("transform", "translate(0," + height + ")")
-	      .call(xAxis);
+	// 	//append and call xAxis to display xAxis
+	//    	chart.append("g")
+	//       .attr("class", "x axis")
+	//       .attr("transform", "translate(0," + height + ")")
+	//       .call(xAxis);
 
-	    //append and call yAxis to display yAxis 
-	   	chart.append("g")
-	      .attr("class", "y axis")
-	      .call(yAxis)
-	      .append("text")
-	      .attr("transform","rotate(-90)")
-	      .attr("y",5)
-	      .attr("dy",".71em")
-	      .style("text-anchor","end")
-	      .text("information");
+	//     //append and call yAxis to display yAxis 
+	//    	chart.append("g")
+	//       .attr("class", "y axis")
+	//       .call(yAxis)
+	//       .append("text")
+	//       .attr("transform","rotate(-90)")
+	//       .attr("y",5)
+	//       .attr("dy",".71em")
+	//       .style("text-anchor","end")
+	//       .text("information");
 
-	    // insert data and bind to virtual elements for bar charts  
-	   	chart.selectAll(".bar")
-	      .data(data)
-	    .enter().append("rect")
-	      .attr("class", "bar")
-	      .attr("x", function(d) { return x(d.name); })
-	      .attr("y", function(d) { return y(d.value); })
-	      .attr("height", function(d) { return height - y(d.value); })
-	      .attr("width", x.rangeBand());
-		});
+	//     // insert data and bind to virtual elements for bar charts  
+	//    	chart.selectAll(".bar")
+	//       .data(data)
+	//     .enter().append("rect")
+	//       .attr("class", "bar")
+	//       .attr("x", function(d) { return x(d.name); })
+	//       .attr("y", function(d) { return y(d.value); })
+	//       .attr("height", function(d) { return height - y(d.value); })
+	//       .attr("width", x.rangeBand());
+	// 	});
 	
 	// **************load data from Static JSON*****************	
 	// d3.json('assets/dataDir/data.json',function(err,pics){
@@ -307,41 +308,42 @@ angular.module('webrtcAppApp')
 	// 	});
 
 	// **************load data from API call********************
-	// d3.json("/api/dataViews/",function(err,data){
+	d3.json("/api/dataViews/",function(err,data){
 
-	// 	//define domain with data range
-	// 	x.domain([0,d3.max(data,function(d){return d.LicenseCount ;})]);
-	// 	y.domain([0,d3.max(data,function(d) {return d.LicenseUsed ; })]);
+		//define domain with data range
+		x.domain(data.map(function(d) { return d.AppsName; }));
+		// x.domain(function(d) {return d.AppsName ; });
+		y.domain([0,d3.max(data,function(d) {return d.LicenseUsed ; })]);
 
-	// 	console.log(data);
-	// 	//append and call xAxis to display xAxis
-	// 	chart.append("g")
-	// 	.attr("class","x axis")
-	// 	.attr("transform","translate(0,"+ height +")")
-	// 	.call(xAxis);
+		// console.log(data);
+		//append and call xAxis to display xAxis
+		chart.append("g")
+		.attr("class","x axis")
+		.attr("transform", "translate(0," + (height +30)  + ")")
+		.call(xAxis);
 
-	// 	//append and call yAxis to display yAxis
-	// 	chart.append("g")
-	// 	.attr("class","y axis")
-	// 	.call(yAxis)
-	// 	.append("text")
-	// 	.attr("transform","rotate(-90)")
-	// 	.attr("y",5)
-	// 	.attr("dy",".71em")
-	// 	.style("text-anchor","end")
-	// 	.text("information");
+		//append and call yAxis to display yAxis
+		chart.append("g")
+		.attr("class","y axis")
+		.call(yAxis)
+		.append("text")
+		.attr("transform","rotate(-90)")
+		.attr("y",5)
+		.attr("dy",".71em")
+		.style("text-anchor","end")
+		.text("information");
 
-	// 	// insert data and bind to virtual elements for bar charts  
-	// 	chart.selectAll(".bar")
-	// 	.data(data)
-	// 	.enter().append("rect")
-	// 	.attr("class","bar")
-	// 	.attr("x",function(d){return x(d.LicenseCount);})
-	// 	.attr("y",function(d){return y(d.LicenseUsed) ;})
-	// 	.attr("height",function(d){return height - y(d.LicenseUsed) ;})
-	// 	.attr("width",10);
+		// insert data and bind to virtual elements for bar charts  
+		chart.selectAll(".bar")
+		.data(data)
+		.enter().append("rect")
+		.attr("class","bar")
+		.attr("x",function(d){return x(d.AppsName) ;})
+		.attr("y",function(d){return y(d.LicenseUsed) ;})
+		.attr("height",function(d){return height - y(d.LicenseUsed) ;})
+		.attr("width",5);
 
-	//  });	
+	 });	
 
 
 

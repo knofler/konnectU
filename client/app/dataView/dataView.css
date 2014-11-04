@@ -29,6 +29,7 @@
 }
 .axis text {
   font: 10px sans-serif;
+/*  -webkit-transform: rotate(-90deg);*/
 }
 
 .axis path,
