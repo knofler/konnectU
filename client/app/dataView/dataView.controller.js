@@ -345,6 +345,21 @@ angular.module('webrtcAppApp')
 
 	 });	
 
+	//Brush generator
+
+	//select brush element
+	var brushElem = d3.select("#brush");
+	//create scale first
+	var scale = d3.scale.linear()
+				.domain([20,30])
+				.range([10,300]);
+	//Generate brush			
+	var brush = d3.svg.brush();
+	brush.x(scale);
+	brush.extent([22,28]);
+
+	var g = brushElem.append("g");
+	brush(g);
 
 
 
