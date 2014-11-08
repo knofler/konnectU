@@ -11,9 +11,15 @@ angular.module('webrtcAppApp')
 	d3.json('assets/dataDir/data.json',function(err,pics){
 		// capture data in a avariable		
 		var data = pics.data.children;
+		data.forEach(function(d){
+			d.data.created *=1000;
+		 });
+
+		console.log(data);
+		//table
+
 		//parent Div where table will be inserted
 		var display = d3.select('.col-md-12');
-
 		//table container
 		var tdiv = display.append("div").classed("table-responsive",true);
 		//instantiate chart function
@@ -22,6 +28,13 @@ angular.module('webrtcAppApp')
 		table.data(data);
 		//render table
 		table(tdiv);		
+
+		var svg = d3.select("#svg3")
+		//scatter plot
+		var sgroup = svg.append("g");
+		var scatter = d3.chart.scatter();
+		scatter.data(data);
+		scatter(sgroup);
 	 });	
 	// Construction of reusable table function in d3 chart object
 	if (!d3.chart) d3.chart = {};
@@ -166,6 +179,117 @@ angular.module('webrtcAppApp')
      }; 
 
 
+	// *********************Scatter Polt******************************
+	if (!d3.chart) d3.chart = {};
+	d3.chart.scatter 	= function(){
+		var g;
+		var data;
+		var width = 400;
+		var height = 400;
+
+		//reusable chart pattern
+		function chart (container){
+			//initialization code
+			g = container;
+			
+			var maxScore = d3.max(data,function(d){return d.data.score});
+			
+			var yScale	= d3.scale.linear()
+			.domain([0,maxScore])
+			.range([0,height]);
+
+			var xScale  = d3.scale.ordinal()
+			.domain(d3.range(data.length))
+			.rangeBands([1,611],0.64);
+
+			var g = g.append("g")
+			.attr({"transform":"translate(27,50)"})
+
+			var circles = g.selectAll("circle")
+			.data(data);
+
+			circles.enter()
+			.append("circle");	
+
+			circles.attr({
+				cx:function(d,i){return xScale(i)},
+				cy:function(d,i){return yScale(d.data.score)},
+				r:10
+			})
+		 };
+		//grab data
+		chart.data  = function(value){
+		 	if(!arguments.length) return data;
+		 	data = value;
+		 	return chart;
+		 };
+		chart.width  = function(value){
+		 	if(!arguments.length) return width;
+		 	width = value;
+		 	return chart;
+		 };
+		//width function 
+		chart.height = function(value){
+		  if(!arguments.length) return height;
+		 	height = value;
+		 	return chart;
+		 };
+		 //return chart function as the condition of reusable chart pattern
+		
+		return chart;
+	 }; 
+	 
+ 
+    // *********************Brush******************************
+ 	 //   d3.chart.brush = function(){
+  //   	var  g;
+  //   	var data;
+  //   	var width = 400;
+  //   	vr height = 400;
+
+  //   	function chart (container) {
+  //   		g = container;
+  //   		var maxScore = d3.max(data,function(d){return d.data.score});
+  //   		var yScale = d3.scale.linear();
+  //   	}
+  //   	//Brush generator
+		// //select brush element
+		// var brushElem = d3.select("#brush");
+		// //create scale first
+		// var scale = d3.scale.linear()
+		// 			.domain([20,30])
+		// 			.range([10,300]);
+		// //Generate brush			
+		// var brush = d3.svg.brush();
+		// brush.x(scale);
+		// brush.extent([22,28]);
+
+		// var g = brushElem.append("g");
+		// brush(g);
+
+		// g.attr("transform","trabslate(50,100)")
+		// g.selectAll("rect").attr("height",height);
+		// g.selectAll("background")
+		//  .style({fill :"#4B9E9E",visibility:"visible"})
+		// g.selectAll("extent")
+		//  .style({fill :"#78C5C5",visibility:"visible"})
+		// g.selectAll(".resize rect")
+		//  .style({fill :"#276C86",visibility:"visible"})  
+
+		// var rects = g.selectAll("rect.events")
+		// .data(data) 
+		// rects.enter()
+		// .append("rect").classed("events",true);
+
+		// rects.attr({
+		// 	x:function(d){return scale(d.data.created)},
+		// 	y:0,
+		// 	width:1,
+		// 	height:height
+		// }).style("pointer-events","none")
+  //    };
+
+
     // #### HISTOGRAM ###### 
 	
 	//histogram layout with reddit data json
@@ -236,38 +360,36 @@ angular.module('webrtcAppApp')
 	// **************load data from csv*************************	
 	// d3.csv("assets/dataDir/data.csv",type,function(error,data){
 	// 	// console.log(data);
-
 	// 	//define domain with data range
 	// 	x.domain(data.map(function(d) { return d.name; }));
 	// 	y.domain([0, d3.max(data, function(d) { return d.value; })]);
-
 	// 	//append and call xAxis to display xAxis
-	//    	chart.append("g")
-	//       .attr("class", "x axis")
-	//       .attr("transform", "translate(0," + height + ")")
-	//       .call(xAxis);
+	// 	chart.append("g")
+	// 	 .attr("class", "x axis")
+	// 	 .attr("transform", "translate(0," + height + ")")
+	// 	 .call(xAxis);
 
-	//     //append and call yAxis to display yAxis 
-	//    	chart.append("g")
-	//       .attr("class", "y axis")
-	//       .call(yAxis)
-	//       .append("text")
-	//       .attr("transform","rotate(-90)")
-	//       .attr("y",5)
-	//       .attr("dy",".71em")
-	//       .style("text-anchor","end")
-	//       .text("information");
+	// 	//append and call yAxis to display yAxis 
+	// 	chart.append("g")
+	// 	  .attr("class", "y axis")
+	// 	  .call(yAxis)
+	// 	  .append("text")
+	// 	  .attr("transform","rotate(-90)")
+	// 	  .attr("y",5)
+	// 	  .attr("dy",".71em")
+	// 	  .style("text-anchor","end")
+	// 	  .text("information");
 
-	//     // insert data and bind to virtual elements for bar charts  
-	//    	chart.selectAll(".bar")
-	//       .data(data)
-	//     .enter().append("rect")
-	//       .attr("class", "bar")
-	//       .attr("x", function(d) { return x(d.name); })
-	//       .attr("y", function(d) { return y(d.value); })
-	//       .attr("height", function(d) { return height - y(d.value); })
-	//       .attr("width", x.rangeBand());
-	// 	});
+	// 	// insert data and bind to virtual elements for bar charts  
+	// 	chart.selectAll(".bar")
+	// 	.data(data)
+	// 	.enter().append("rect")
+	// 	  .attr("class", "bar")
+	// 	  .attr("x", function(d) { return x(d.name); })
+	// 	  .attr("y", function(d) { return y(d.value); })
+	// 	  .attr("height", function(d) { return height - y(d.value); })
+	// 	  .attr("width", x.rangeBand());
+	//  });
 	
 	// **************load data from Static JSON*****************	
 	// d3.json('assets/dataDir/data.json',function(err,pics){
@@ -342,24 +464,7 @@ angular.module('webrtcAppApp')
 		.attr("y",function(d){return y(d.LicenseUsed) ;})
 		.attr("height",function(d){return height - y(d.LicenseUsed) ;})
 		.attr("width",5);
-
 	 });	
-
-	//Brush generator
-
-	//select brush element
-	var brushElem = d3.select("#brush");
-	//create scale first
-	var scale = d3.scale.linear()
-				.domain([20,30])
-				.range([10,300]);
-	//Generate brush			
-	var brush = d3.svg.brush();
-	brush.x(scale);
-	brush.extent([22,28]);
-
-	var g = brushElem.append("g");
-	brush(g);
 
 
 
